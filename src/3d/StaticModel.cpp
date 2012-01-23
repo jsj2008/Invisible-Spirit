@@ -34,6 +34,8 @@ void StaticModel::createNode(const core::vector3df& initPosition) {
   mainNode = Game::getSceneManager()->addMeshSceneNode(mainMesh);
   mainNode->setMaterialFlag(video::EMF_LIGHTING, false);
   mainNode->setPosition(initPosition);
+  //mainNode->setDebugDataVisible(2);
+  //mainNode->setMaterialFlag(video::EMF_WIREFRAME, true);
 }
 
 /**

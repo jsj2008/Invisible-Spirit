@@ -166,7 +166,7 @@ void Game::run() {
       videoDriver->beginScene(true, true, video::SColor(255,0,0,0));
       currentScene->events();
       sceneManager->drawAll();
-      currentScene->postRender();
+      //currentScene->postRender();
       debugGUI->drawAll();
 
       soundManager->setEarsData(currentScene->getActiveCamera(), speedFactor);
@@ -187,7 +187,7 @@ void Game::run() {
       videoDriver->beginScene(true, true, video::SColor(255,255,255,255));
       currentScene->events();
       sceneManager->drawAll();
-      currentScene->postRender();
+      //currentScene->postRender();
       debugGUI->drawAll();
       soundManager->setEarsData(currentScene->getActiveCamera(), speedFactor);
       soundManager->update();

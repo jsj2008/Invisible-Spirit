@@ -149,7 +149,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   core::vector3df origin(xPoint, mainNode->getPosition().Y, zPoint);
   core::vector3df end(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
   rayA = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
-  //_draw_line(origin, end);
+  _draw_line(origin, end);
 
   // B
   xPoint = mainNode->getPosition().X - floorSensorWidth * cos(core::degToRad(mainNode->getRotation().Y) - (core::PI / 2));
@@ -157,7 +157,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
   rayB = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
-  //_draw_line(origin, end);
+  _draw_line(origin, end);
 
   // C
   xPoint = mainNode->getPosition().X - floorSensorWidth * cos(core::degToRad(mainNode->getRotation().Y) + (core::PI));
@@ -165,7 +165,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
   rayC = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
-  //_draw_line(origin, end);
+  _draw_line(origin, end);
 
   // D
   xPoint = mainNode->getPosition().X - floorSensorWidth * cos(core::degToRad(mainNode->getRotation().Y) + (core::PI / 2));
@@ -173,7 +173,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
   rayD = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
-  //_draw_line(origin, end);
+  _draw_line(origin, end);
 
   f32 minAB = core::min_(rayA, rayB);
   f32 minCD = core::min_(rayC, rayD);
