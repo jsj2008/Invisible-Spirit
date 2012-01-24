@@ -43,7 +43,8 @@ class AnimatedModel : public ModelEntity {
     bool isInBoxSensor(BoxSensor* sensor, EventType type = EVENT_ALWAYS);
     f32 getFloorCollision(StaticModel* other);
     f32 getWallCollision(RayType type, StaticModel* other, core::vector3df& normal);
-
+    bool collidesWithWall(StaticModel* other);
+    virtual void createCylinderCollision();
 
     // Animations
     void setCurrentAnimation(CharacterAnimationIdentifier id, f32 speed = 30.0f);

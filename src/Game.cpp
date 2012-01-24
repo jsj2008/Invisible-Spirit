@@ -61,9 +61,9 @@ void Game::init() {
   // Limites de résolution d'écran 640x480 => 1920x1080
   u32 screenWidth = settings->getParamInt("display", "width");
   u32 screenHeight = settings->getParamInt("display", "height");
-  if(screenWidth < 640) screenWidth = 640;
+  if(screenWidth < 160) screenWidth = 160;
   if(screenWidth > 1920) screenWidth = 1920;
-  if(screenHeight < 480) screenHeight = 480;
+  if(screenHeight < 120) screenHeight = 120;
   if(screenHeight > 1080) screenHeight = 1080;
 
   // Création du device

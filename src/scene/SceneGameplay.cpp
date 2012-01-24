@@ -208,15 +208,6 @@ void SceneGameplay::manageAyronCollisions() {
 
   // Wall collision, this normal vector will be modified by getWallCollision functions
   core::vector3df normal;
-
-  ayron->getWallCollision(RAY_WALL_P, level, normal);
-  ayron->getWallCollision(RAY_WALL_Q, level, normal);
-
-  if(ayron->getWallCollision(RAY_WALL_P, level, normal) < 1.0f || ayron->getWallCollision(RAY_WALL_Q, level, normal) < 1.0f) {
-    while(ayron->getWallCollision(RAY_WALL_P, level, normal) < 0.99 || ayron->getWallCollision(RAY_WALL_Q, level, normal) < 0.99) {
-      ayron->moveOpposite(normal);
-    }
-  }
 }
 
 /**

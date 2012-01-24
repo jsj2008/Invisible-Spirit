@@ -6,6 +6,7 @@ http://www.is06.com. Legal code in license.txt
 *******************************************************************************/
 
 #include "../../include/ref/core.h"
+#include "../../include/Game.h"
 #include "../../include/3d/Ayron.h"
 #include "../../include/3d/Camera.h"
 #include "../../include/3d/Character.h"
@@ -18,6 +19,10 @@ using namespace std;
  * @param Camera* cam pointer to a Camera to link to Ayron
  */
 Ayron::Ayron(Camera* cam) : Character() {
+  mainNode = NULL;
+  mainBody = NULL;
+  mainMesh = NULL;
+
   controlable = true;
   jumpDelta = 0.0f;
   fallDelta = 0.0f;
@@ -39,7 +44,24 @@ Ayron::Ayron(Camera* cam) : Character() {
     mainNode->getRotation().Z
   ));
 
-  //mainNode->setMaterialFlag(video::EMF_WIREFRAME, true);
+  createCylinderCollision();
+}
+
+/**
+ *
+ */
+void Ayron::createCylinderCollision() { AnimatedModel::createCylinderCollision();
+  core::matrix4 mat;
+  NewtonCollision* collision = NewtonCreateCylinder(Game::getNewtonWorld(), 1.0f, 0.2f, 0, mat.pointer());
+
+  if(mainBody) {
+    NewtonBodySetCollision(mainBody, collision);
+  } else {
+    cout << "no main body" << endl;
+  }
+
+
+  NewtonReleaseCollision(Game::getNewtonWorld(), collision);
 }
 
 /**

@@ -32,6 +32,7 @@ class Ayron : public Character {
 
     // Collisions avec les murs
     void moveOpposite(const core::vector3df& normal);
+    void createCylinderCollision();
 
     void toggleControl();
 

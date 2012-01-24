@@ -34,6 +34,7 @@ void AnimatedModel::render() { ModelEntity::render();
 void AnimatedModel::createNode(const core::vector3df& initPosition) {
   mainNode = Game::getSceneManager()->addAnimatedMeshSceneNode((scene::IAnimatedMesh*)mainMesh);
   mainNode->setMaterialFlag(video::EMF_LIGHTING, false);
+  mainNode->setMaterialFlag(video::EMF_WIREFRAME, true);
   mainNode->setPosition(initPosition);
 }
 
@@ -134,6 +135,8 @@ bool AnimatedModel::collidesWithStatic(StaticModel* other) {
  * @return f32 (collision between 0.0f and 1.0f)
  */
 f32 AnimatedModel::getFloorCollision(StaticModel* other) {
+  NewtonCollision* otherBodyCollision = NewtonBodyGetCollision(other->getMainBody());
+
   f32 normals[3];
   f32 xPoint, zPoint;
   s32 faceId;
@@ -148,7 +151,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   zPoint = mainNode->getPosition().Z + floorSensorWidth * sin(core::degToRad(mainNode->getRotation().Y));
   core::vector3df origin(xPoint, mainNode->getPosition().Y, zPoint);
   core::vector3df end(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
-  rayA = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
+  rayA = NewtonCollisionRayCast(otherBodyCollision, &origin.X, &end.X, normals, &faceId);
   _draw_line(origin, end);
 
   // B
@@ -156,7 +159,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   zPoint = mainNode->getPosition().Z + floorSensorWidth * sin(core::degToRad(mainNode->getRotation().Y) - (core::PI / 2));
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
-  rayB = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
+  rayB = NewtonCollisionRayCast(otherBodyCollision, &origin.X, &end.X, normals, &faceId);
   _draw_line(origin, end);
 
   // C
@@ -164,7 +167,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   zPoint = mainNode->getPosition().Z + floorSensorWidth * sin(core::degToRad(mainNode->getRotation().Y) + (core::PI));
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
-  rayC = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
+  rayC = NewtonCollisionRayCast(otherBodyCollision, &origin.X, &end.X, normals, &faceId);
   _draw_line(origin, end);
 
   // D
@@ -172,7 +175,7 @@ f32 AnimatedModel::getFloorCollision(StaticModel* other) {
   zPoint = mainNode->getPosition().Z + floorSensorWidth * sin(core::degToRad(mainNode->getRotation().Y) + (core::PI / 2));
   origin = core::vector3df(xPoint, mainNode->getPosition().Y, zPoint);
   end = core::vector3df(xPoint, mainNode->getPosition().Y - 1.0f, zPoint);
-  rayD = NewtonCollisionRayCast(NewtonBodyGetCollision(other->getMainBody()), &origin.X, &end.X, normals, &faceId);
+  rayD = NewtonCollisionRayCast(otherBodyCollision, &origin.X, &end.X, normals, &faceId);
   _draw_line(origin, end);
 
   f32 minAB = core::min_(rayA, rayB);
@@ -220,6 +223,20 @@ f32 AnimatedModel::getWallCollision(RayType type, StaticModel* other, core::vect
   );
 
   return NewtonCollisionRayCast(otherBodyCollision, &origin.X, &end.X, &normal.X, &faceId);
+}
+
+/**
+ *
+ */
+bool AnimatedModel::collidesWithWall(StaticModel* other) {
+  return false;
+}
+
+/**
+ *
+ */
+void AnimatedModel::createCylinderCollision() {
+
 }
 
 /**
